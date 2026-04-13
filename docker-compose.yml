@@ -4,20 +4,20 @@ version: "3.8"
 #  Sorare MLB 2026 — Tier List par Division
 #  Déploiement Portainer · Port 8573
 #  Source : github.com/TON_USER/sorare-mlb
+#
+#  Les fichiers sont EMBARQUÉS dans l'image via
+#  le Dockerfile — aucun volume nécessaire.
 # ─────────────────────────────────────────────
 
 services:
 
   sorare-mlb:
-    image: nginx:alpine                          # image de base légère
+    build:
+      context: ./app                # Dockerfile + index.html + nginx.conf
+      dockerfile: Dockerfile
+    image: sorare-mlb:latest
     container_name: sorare-mlb
     restart: unless-stopped
-
-    # Monte les fichiers directement depuis le dépôt cloné
-    # (Portainer doit avoir accès au chemin hôte, ou utiliser un volume)
-    volumes:
-      - ./app/index.html:/usr/share/nginx/html/index.html:ro
-      - ./app/nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
     ports:
       - "8573:80"
@@ -31,7 +31,7 @@ services:
 
     labels:
       - "com.docker.compose.project=sorare-mlb"
-      - "traefik.enable=false"        # mettre true si tu utilises Traefik
+      - "traefik.enable=false"
 
 networks:
   default:
