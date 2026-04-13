@@ -35,4 +35,4 @@ services:
 
 networks:
   default:
-    name: sorare-mlb-net
+    name: craft-helper
