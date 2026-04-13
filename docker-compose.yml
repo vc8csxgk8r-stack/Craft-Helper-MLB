@@ -15,8 +15,8 @@ services:
     build:
       context: ./app                # Dockerfile + index.html + nginx.conf
       dockerfile: Dockerfile
-    image: sorare-mlb:latest
-    container_name: sorare-mlb
+    image: craft-helper:latest
+    container_name: craft-helper
     restart: unless-stopped
 
     ports:
@@ -30,7 +30,7 @@ services:
       start_period: 10s
 
     labels:
-      - "com.docker.compose.project=sorare-mlb"
+      - "com.docker.compose.project=craft-helper"
       - "traefik.enable=false"
 
 networks:
